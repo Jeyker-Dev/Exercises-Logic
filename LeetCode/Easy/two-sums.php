@@ -33,23 +33,65 @@ Only one valid answer exists.
 
 class TwoSums
 {
-    public function sums(array $nums, int $target)
+    public array $nums = [];
+    public function sums()
     {
-        echo "How many numbers do you want to enter?\n";
+        echo "Write the target:\n";
+
+       $target = fgets(STDIN);
+
+        for ($i = 0; $i < count($this->nums); $i++) {
+            for ($i_2 = 0; $i_2 < count($this->nums); $i_2++) {
+                if ($i != $i_2) {
+                    $sum = $this->nums[$i] + $this->nums[$i_2];
+                    echo "Sum of {$this->nums[$i]} and {$this->nums[$i_2]} is: $sum\n";
+                }
+            }
+        }
+
+        echo "The sum is: ".$sum.".\n";
+        if ($sum == $target) {
+            echo "The Numbers that equal the target are: \n";
+
+            foreach ($this->nums as $num) {
+                echo $num;
+            }
+        } else {
+            echo "There's no numbers entered that equals the target";
+        }
+
+    }
+
+    public function saveNumbers()
+    {
         $input = fgets(STDIN);
 
-        for ($i = 1; $i <= $input; $i++) {
+        for ($i = 0; $i <= $input; $i++) {
             echo "Write a Number:\n";
 
             $number = fgets(STDIN);
 
-            $nums = [$number];
+            $this->nums[] = $number;
         }
 
+        echo "This are the numbers:\n";
 
+        foreach ($this->nums as $num) {
+            echo $num;
+        }
     }
-    public function message(): void
+    public function messageWelcome(): void
     {
         echo "This program will ask you to write numbers and then a target and return the sums of the number that will be the equal of the target.\n";
+        echo "How many numbers do you want to enter?\n";
     }
 }
+
+$instance = new TwoSums();
+
+$instance->messageWelcome();
+
+$instance->saveNumbers();
+
+$instance->sums();
+
