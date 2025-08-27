@@ -50,23 +50,93 @@ class RomanToInteger
 {
     public string $romanNumber = "";
     public array $romanNumbers = [];
+    public array $separateRomanNumbers = [];
+    public array $integerValues = [];
 
-    function welcomeMessage()
+    function welcomeMessage(): void
     {
         echo "Hi! this program will convert a Roman number to a integer.\n";
 
         echo "Please, enter a roman number:\n";
     }
 
-    function romantoInteger()
+    function romantoInteger(): void
     {
         $this->romanNumber = fgets(STDIN);
 
-        echo "The number is: " . $this->romanNumber . "\n";
+        $this->checkRomanNumber($this->romanNumber);
+
+        var_dump($this->integerValues);
+    }
+
+    public function checkRomanNumber(string $romanNumber): void
+    {
+        $romanNumber = $this->clearSpaces($romanNumber);
+
+        $this->separateRomanNumbers = $this->separateString($romanNumber);
+
+        foreach ($this->romanNumbers as $number) {
+            foreach ($this->separateRomanNumbers as $separateromanNumber) {
+                if ($separateromanNumber === $number) {
+                    $integerValue = $this->whichIntegerIs($number);
+
+                    $this->integerValues[] = $integerValue;
+                }
+            }
+        }
+    }
+
+    public function whichIntegerIs(string $romanNumber): ?int
+    {
+        if ($romanNumber === "I") {
+            return 1;
+        }
+
+        if ($romanNumber === "V") {
+            return 5;
+        }
+
+        if ($romanNumber === "X") {
+            return 10;
+        }
+
+        if ($romanNumber === "L") {
+            return 50;
+        }
+
+        if ($romanNumber === "C") {
+            return 100;
+        }
+
+        if ($romanNumber === "D") {
+            return 500;
+        }
+
+        if ($romanNumber === "M") {
+            return 1000;
+        }
+
+        return null;
+    }
+
+    public function separateString(string $romanNumber): array
+    {
+        return str_split($romanNumber);
+    }
+
+    public function fillRomanNumbers(): void
+    {
+        $this->romanNumbers = ["I", "V", "X", "L", "C", "D", "M"];
+    }
+
+    public function clearSpaces(string $romanNumber): string
+    {
+        return trim($romanNumber);
     }
 }
 
 $instance = new RomanToInteger();
 
 $instance->welcomeMessage();
+$instance->fillRomanNumbers();
 $instance->romantoInteger();
