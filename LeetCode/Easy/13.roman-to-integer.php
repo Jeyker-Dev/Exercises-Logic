@@ -66,7 +66,9 @@ class RomanToInteger
 
         $this->checkRomanNumber($this->romanNumber);
 
-        var_dump($this->integerValues);
+        $totalValue = $this->sumIntegerValues();
+
+        echo "The Roman number is $totalValue.\n";
     }
 
     public function checkRomanNumber(string $romanNumber): void
@@ -117,6 +119,11 @@ class RomanToInteger
         }
 
         return null;
+    }
+
+    public function sumIntegerValues(): int
+    {
+        return array_sum($this->integerValues);
     }
 
     public function separateString(string $romanNumber): array
