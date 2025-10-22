@@ -37,20 +37,23 @@ class TwoSums:
 
     def __init__(self):
         self.numbers: list[int] = []
-        self.num: int
-        self.written_number: str | int = ""
+        self.num: int | None = None
         self.condition: int | None = None
+        self.target: int | None = None
 
         print("Write the numbers you want: \n Write 0 to exit.")
 
         while self.condition != 0:
-            self.written_number = input().strip()
-            self.num = self.convert_to_int(self.written_number)
+            self.num = self.convert_to_int(input().strip())
             self.numbers.append(self.num)
 
             if self.num == 0:
                 self.condition = self.num
                 self.numbers.remove(self.num)
+
+        print("Write the target: ")
+
+        self.target = self.convert_to_int(input().strip())
 
     @staticmethod
     def convert_to_int(selection: str) -> int:
